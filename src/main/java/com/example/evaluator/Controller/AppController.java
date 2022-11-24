@@ -3,16 +3,17 @@ package com.example.evaluator.Controller;
 
 import com.example.evaluator.Model.Exam;
 import com.example.evaluator.Model.ExamGuideline;
-import com.example.evaluator.Repository.ExamRepository;
 import com.example.evaluator.Service.ExamGuidelineService;
 import com.example.evaluator.Service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/exam")
-public class AppController {
+public class AppController implements ErrorController {
 
     @Autowired
     ExamService examService;
@@ -20,6 +21,24 @@ public class AppController {
     @Autowired
     ExamGuidelineService examGuidelineService;
 
+
+    private static final String PATH = "/error";
+
+    @RequestMapping(value = PATH)
+    public String error() {
+        return "Error handling";
+    }
+
+//    @Override
+//    public String getErrorPath() {
+//        return PATH;
+//    }
+
+    @RequestMapping(value = "/login")
+    public String login()
+    {
+        return "login";
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/guideline/add")
     public String createGuideLine(@RequestBody ExamGuideline examGuideline)
