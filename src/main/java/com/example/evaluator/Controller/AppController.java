@@ -49,15 +49,15 @@ public class AppController implements ErrorController {
 //    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/guideline/add")
-    public String createGuideLine(@RequestBody ExamGuideline examGuideline)
+    public ResponseEntity<?> createGuideLine(@RequestBody ExamGuideline examGuideline)
     {
-        return examGuidelineService.addGuideline(examGuideline);
+        return ResponseEntity.ok(examGuidelineService.addGuideline(examGuideline));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/add/{examid}/{guidelineid}")
-    public String createExam(@PathVariable int examid, @PathVariable int guidelineid)
+    public ResponseEntity<?> createExam(@PathVariable int examid, @PathVariable int guidelineid)
     {
-        return examService.linkExamWithExamGuideline(examid, guidelineid);
+        return ResponseEntity.ok(examService.linkExamWithExamGuideline(examid, guidelineid));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test/get/{examid}")
