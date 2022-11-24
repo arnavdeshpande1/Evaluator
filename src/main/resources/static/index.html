@@ -5,9 +5,7 @@
   <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="
-
-  css/login_style.css">
+  <link rel="stylesheet" type="text/css" href="css/login_style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
@@ -18,17 +16,40 @@
 
 <body class="body">
 
+<script>
+  var base="http://localhost:8080/";
+
+  function fun(testid) {
+    // window.location = "guidelines.html?testid="+testid;
+
+    // console.log("in fun function")
+    fetch(base+'test/get/'+testid, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    }).then(response => response.json())
+            .then((data) => {
+              // console.log(data);
+              data = JSON.stringify(data)
+              localStorage['examGuidelines'] = data;
+              window.location = "guidelines.html?testid="+testid;
+              // document.getElementById("finalresult").value = data;
+            });
+  }
+</script>
+
 <div class="login-page">
   <div class="form">
 
-    <form>
-      <input type="text" placeholder="&#xf007;  testid"/>
+
+      <input id="testid" type="text" placeholder="&#xf007;  testid"/>
 <!--      <input type="text" id="password" placeholder="&#xf023;  roleid"/>-->
       <br>
       <br>
-      <button onclick="fun()">Submit</button>
+      <button onclick="fun(document.getElementById('testid').value)">Submit</button>
       <p class="message"></p>
-    </form>
+
 
 <!--    <form class="login-form">-->
 <!--      <button type="button" onclick="window.location.href='signup.html'">SIGN UP</button>-->

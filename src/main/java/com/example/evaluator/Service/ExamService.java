@@ -18,6 +18,13 @@ public class ExamService
     @Autowired
     ExamGuidelineRepo examGuidelineRepo;
 
+
+//    public Iterable<Exam> listAll()
+//    {
+//        return this.examRepository.findAll();
+//    }
+
+
     public String linkExamWithExamGuideline(int examid, int guideineLine)
     {
         Optional<ExamGuideline> examGuideline = examGuidelineRepo.findById(guideineLine);
@@ -38,9 +45,12 @@ public class ExamService
         Optional<Exam> exam = examRepository.findById(examid);
         if (exam.isEmpty())
         {
+//            return "ID dose not exist";
             return new Exam();
+
         }
         Exam obj = exam.get();
         return obj;
+//        return "ID exist";
     }
 }

@@ -8,11 +8,12 @@ import com.example.evaluator.Service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/exam")
+//@RequestMapping("/exam")
 public class AppController implements ErrorController {
 
     @Autowired
@@ -34,11 +35,18 @@ public class AppController implements ErrorController {
 //        return PATH;
 //    }
 
-    @RequestMapping(value = "/login")
-    public String login()
-    {
-        return "login";
-    }
+//    @RequestMapping(value = "/")
+//    public Iterable<Exam> getexamid()
+//    {
+//        return examService.listAll();
+//    }
+
+//    @RequestMapping(value="/first")
+////    @ResponseBody
+//    public String getTest()
+//    {
+//        return "first";
+//    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/guideline/add")
     public String createGuideLine(@RequestBody ExamGuideline examGuideline)
@@ -52,10 +60,11 @@ public class AppController implements ErrorController {
         return examService.linkExamWithExamGuideline(examid, guidelineid);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/guideline/get/{examid}")
-    public Exam getExam(@PathVariable int examid)
+    @RequestMapping(method = RequestMethod.GET, value = "/test/get/{examid}")
+    public ResponseEntity<?> getExam(@PathVariable int examid)
     {
-        return examService.getGuideline(examid);
+        System.out.println("in get exam api");
+        return ResponseEntity.ok(examService.getGuideline(examid));
     }
 
 }

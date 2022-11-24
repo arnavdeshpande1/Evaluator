@@ -7,5 +7,7 @@ public interface ExamRepository extends JpaRepository<Exam, Integer> {
 
 //    List<Exam> findByTitleContainingOrContentContaining(String text, String textAgain);
 
+//    boolean findByTestid(int testid);
+
 
 }
