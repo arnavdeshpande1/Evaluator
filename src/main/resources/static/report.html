@@ -21,7 +21,7 @@
             <h3 id="checked"></h3>
             <h3 id="unchecked"></h3>
             <h3 id="u"></h3>
-            <input type="button" value="Show Unchecked" onclick="generateTable()" />
+            <button onclick="func()">Show Unchecked</button>
 
         </div>
 
@@ -76,9 +76,31 @@
         var unchecked = document.getElementById("unchecked")
         unchecked.innerText = "Number of Papers Unchecked="+ ct_unchecked;
 
-        //
-        // var u = document.getElementById("u")
-        // unchecked.innerText = examGuidelines["questions"];
+
+        function func() {
+            // window.location = "guidelines.html?testid="+testid;
+
+            // console.log("in fun function")
+            // console.log(report[0]["testid"])
+            var guidelineId = report[0]["testid"];
+            console.log(guidelineId)
+
+            fetch(base+'get/pendingPapers/'+guidelineId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            }).then(response => response.json())
+                .then((data) => {
+                    // console.log(data);
+                    data = JSON.stringify(data);
+                    console.log(data);
+                    localStorage['not_check'] = data;
+                    window.location = "remaining.html?guidelineId="+guidelineId;
+                    // document.getElementById("finalresult").value = data;
+                });
+        }
+
 
     </script>
 
