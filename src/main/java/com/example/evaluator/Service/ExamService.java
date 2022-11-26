@@ -7,6 +7,8 @@ import com.example.evaluator.Repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,4 +55,42 @@ public class ExamService
         return obj;
 //        return "ID exist";
     }
+
+    public List<Integer> getSummary(int guideLineId)
+    {
+        int checkedCounter=0, uncheckCounter=0;
+        List<Exam> exams = examRepository.findByExamGuideline(examGuidelineRepo.findById(guideLineId).get());
+        for(Exam exam:exams)
+        {
+            if(exam.getExamCheckStatus()==1)
+            {
+                checkedCounter++;
+            }
+            else {
+                uncheckCounter++;
+            }
+        }
+
+        List<Integer> res = new ArrayList<Integer>();
+        res.add(checkedCounter);
+        res.add(uncheckCounter);
+        return res;
+    }
+
+    public List<Exam> getUncheckedPaper(int guideLineId)
+    {
+        List<Exam> exams = examRepository.findByExamGuideline(examGuidelineRepo.findById(guideLineId).get());
+        List<Exam> res = new ArrayList<Exam>();
+        for(Exam exam:exams)
+        {
+            if(exam.getExamCheckStatus()==0)
+            {
+                res.add(exam);
+            }
+        }
+
+
+        return res;
+    }
+
 }
