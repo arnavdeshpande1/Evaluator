@@ -20,7 +20,7 @@
             <h1>Guidelines</h1>
             <h3 id="mcq"></h3>
             <h3 id="msq"></h3>
-            <button>Submit</button>
+            <button onclick="func()">Submit</button>
         </div>
 
 
@@ -33,6 +33,31 @@
         mcq.innerHTML = "MCQ=Correct(+"+examGuidelines["examGuideline"]["mcqPositive"]+"):Wrong(-"+examGuidelines["examGuideline"]["mcqNegative"]+")";
         var msq = document.getElementById("msq")
         msq.innerText = "MSQ=Correct(+"+examGuidelines["examGuideline"]["msqPositive"]+"):Wrong(-"+examGuidelines["examGuideline"]["msqNegative"]+")";
+
+
+        var base="http://localhost:8080/";
+
+        function func() {
+            // window.location = "guidelines.html?testid="+testid;
+
+            // console.log("in fun function")
+
+            var guidelineId = examGuidelines["testid"];
+
+            fetch(base+'exam/status/'+guidelineId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            }).then(response => response.json())
+                .then((data) => {
+                    // console.log(data);
+                    data = JSON.stringify(data)
+                    localStorage['report'] = data;
+                    window.location = "report.html?guidelineId="+guidelineId;
+                    // document.getElementById("finalresult").value = data;
+                });
+        }
 
     </script>
 

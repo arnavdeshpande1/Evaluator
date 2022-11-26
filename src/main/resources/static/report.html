@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/login_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="js/login.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <title>Report</title>
+</head>
+<body>
+
+<div class="login-page">
+    <div class="form">
+        <div class="m-5">
+            <h1>Report</h1>
+            <h3 id="checked"></h3>
+            <h3 id="unchecked"></h3>
+            <button>Show Remaining Papers</button>
+        </div>
+
+
+    </div>
+    <script>
+        var report = localStorage["report"];
+        report = JSON.parse(report)
+        var checked = document.getElementById("checked")
+        checked.innerHTML = "Number of Papers Checked="+report[0];
+        var unchecked = document.getElementById("unchecked")
+        unchecked.innerText = "Number of Papers Unchecked="+report[1];
+
+    </script>
+
+</div>
+
+</body>
+</html>
