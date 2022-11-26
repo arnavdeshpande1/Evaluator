@@ -69,14 +69,14 @@ public class AppController implements ErrorController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test/get/{examid}")
-    public Exam getExam(@PathVariable int examid)
+    public List<Exam> getExam(@PathVariable int examid)
     {
         System.out.println("in get exam api");
         return examService.getGuideline(examid);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/exam/status/{guideLineId}")
-    public List<Integer> getStatus(@PathVariable Integer guideLineId)
+    public List<Exam> getStatus(@PathVariable Integer guideLineId)
     {
         return examService.getSummary(guideLineId);
     }
@@ -90,7 +90,6 @@ public class AppController implements ErrorController {
     @RequestMapping(method = RequestMethod.POST, value = "/question/add/{examid}")
     public boolean addQuestion(@RequestBody Question question,  @PathVariable Integer examid)
     {
-        System.out.println("Hello");
         return questionService.addQuestion(question, examid);
     }
 

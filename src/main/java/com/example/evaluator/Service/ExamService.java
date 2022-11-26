@@ -5,6 +5,7 @@ import com.example.evaluator.Model.ExamGuideline;
 import com.example.evaluator.Repository.ExamGuidelineRepo;
 import com.example.evaluator.Repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,31 +43,42 @@ public class ExamService
         return "test linked";
     }
 
-    public Exam getGuideline(int examid)
+    public List<Exam> getGuideline(int examid)
     {
         Optional<Exam> exam = examRepository.findById(examid);
-        if (exam.isEmpty())
+
+
+        if (!exam.isPresent())
         {
 //            return "ID dose not exist";
-            return new Exam();
+            return new ArrayList<>();
 
         }
-        Exam obj = exam.get();
-        return obj;
+
+        List<Exam> exams = examRepository.findByExamGuideline(examGuidelineRepo.findById(examid).get());
+
+//        Exam obj = exam.get();
+        return exams ;
 //        return "ID exist";
     }
 
-    public List<Integer> getSummary(int guideLineId)
+//    public List<Integer> getSummary(int guideLineId)
+    public List<Exam> getSummary(int guideLineId)
     {
         int checkedCounter=0, uncheckCounter=0;
+        List<Exam> uncheck = new ArrayList<>();
+//        List<List<Object>> = new List<List<Object>>();
+        int total=0;
         List<Exam> exams = examRepository.findByExamGuideline(examGuidelineRepo.findById(guideLineId).get());
         for(Exam exam:exams)
         {
+            total++;
             if(exam.getExamCheckStatus()==1)
             {
                 checkedCounter++;
             }
             else {
+                uncheck.add(exam);
                 uncheckCounter++;
             }
         }
@@ -74,7 +86,8 @@ public class ExamService
         List<Integer> res = new ArrayList<Integer>();
         res.add(checkedCounter);
         res.add(uncheckCounter);
-        return res;
+//        return res;
+        return uncheck;
     }
 
     public List<Exam> getUncheckedPaper(int guideLineId)

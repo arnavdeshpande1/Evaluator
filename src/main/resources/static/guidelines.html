@@ -20,7 +20,7 @@
             <h1>Guidelines</h1>
             <h3 id="mcq"></h3>
             <h3 id="msq"></h3>
-            <button onclick="func()">Submit</button>
+            <button onclick="func()">Show Reports</button>
         </div>
 
 
@@ -30,9 +30,9 @@
         // localStorage.removeItem("examGuidelines");
         examGuidelines = JSON.parse(examGuidelines)
         var mcq = document.getElementById("mcq")
-        mcq.innerHTML = "MCQ=Correct(+"+examGuidelines["examGuideline"]["mcqPositive"]+"):Wrong(-"+examGuidelines["examGuideline"]["mcqNegative"]+")";
+        mcq.innerHTML = "MCQ=Correct(+"+examGuidelines[0]["examGuideline"]["mcqPositive"]+"):Wrong("+examGuidelines[0]["examGuideline"]["mcqNegative"]+")";
         var msq = document.getElementById("msq")
-        msq.innerText = "MSQ=Correct(+"+examGuidelines["examGuideline"]["msqPositive"]+"):Wrong(-"+examGuidelines["examGuideline"]["msqNegative"]+")";
+        msq.innerText = "MSQ=Correct(+"+examGuidelines[0]["examGuideline"]["msqPositive"]+"):Wrong("+examGuidelines[0]["examGuideline"]["msqNegative"]+")";
 
 
         var base="http://localhost:8080/";
@@ -42,7 +42,7 @@
 
             // console.log("in fun function")
 
-            var guidelineId = examGuidelines["testid"];
+            var guidelineId = examGuidelines[0]["testid"];
 
             fetch(base+'exam/status/'+guidelineId, {
                 method: 'GET',
@@ -52,7 +52,8 @@
             }).then(response => response.json())
                 .then((data) => {
                     // console.log(data);
-                    data = JSON.stringify(data)
+                    data = JSON.stringify(data);
+                    console.log(data);
                     localStorage['report'] = data;
                     window.location = "report.html?guidelineId="+guidelineId;
                     // document.getElementById("finalresult").value = data;

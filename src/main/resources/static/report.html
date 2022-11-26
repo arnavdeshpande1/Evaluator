@@ -20,18 +20,65 @@
             <h1>Report</h1>
             <h3 id="checked"></h3>
             <h3 id="unchecked"></h3>
-            <button>Show Remaining Papers</button>
+            <h3 id="u"></h3>
+            <input type="button" value="Show Unchecked" onclick="generateTable()" />
+
         </div>
 
 
     </div>
     <script>
         var report = localStorage["report"];
-        report = JSON.parse(report)
+        var examGuidelines = localStorage["examGuidelines"];
+        // report[]
+        report = JSON.parse(report);
+
+        var ct_unchecked=0,ct_all=0;
+
+        for (var key in report) {
+           // if (report.hasOwnProperty(key)) {
+                //var val = report[key];
+                //console.log(report[key]);
+                //if(key=='questions'){
+                    //for( key1 in key){
+                        //if(key1=='question')
+                            ct_unchecked++;
+
+                    //}
+            //    }
+
+            }//}
+        // console.log(ct);
+
+        for (var key1 in examGuidelines[0]) {
+            // if (report.hasOwnProperty(key)) {
+            //var val = report[key];
+          //  console.log(examGuidelines[key]);
+            //if(key=='questions'){
+            //for( key1 in key){
+            //if(key1=='question')
+        // console.log(examGuidelines)
+        // for(var i=0;i<examGuidelines.length;i++)
+        // {
+            ct_all++;
+
+            //}
+            //    }
+
+        }//}
+        console.log(ct_unchecked);
+        console.log(ct_all);
+
+
+
         var checked = document.getElementById("checked")
-        checked.innerHTML = "Number of Papers Checked="+report[0];
+        checked.innerHTML = "Number of Papers Checked="+ ct_all;
         var unchecked = document.getElementById("unchecked")
-        unchecked.innerText = "Number of Papers Unchecked="+report[1];
+        unchecked.innerText = "Number of Papers Unchecked="+ ct_unchecked;
+
+        //
+        // var u = document.getElementById("u")
+        // unchecked.innerText = examGuidelines["questions"];
 
     </script>
 
