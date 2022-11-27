@@ -77,28 +77,120 @@
         unchecked.innerText = "Number of Papers Unchecked="+ ct_unchecked;
 
 
+
         function func() {
             // window.location = "guidelines.html?testid="+testid;
 
             // console.log("in fun function")
             // console.log(report[0]["testid"])
-            var guidelineId = report[0]["testid"];
-            console.log(guidelineId)
+            // console.log(typeof report)
+            // var guidelineId = report[0]["testid"];
+            // console.log(guidelineId)
+            //
+            // fetch(base+'get/pendingPapers/'+guidelineId, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=utf-8'
+            //     }
+            // }).then(response => response.json())
+            //     .then((data) => {
+            //         // console.log(data);
+            //         data = JSON.stringify(data);
+            //         console.log(data);
+            //         localStorage['not_check'] = data;
+            //         window.location = "remaining.html?guidelineId="+guidelineId;
+            //         // document.getElementById("finalresult").value = data;
+            //     });
 
-            fetch(base+'get/pendingPapers/'+guidelineId, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
+
+
+            const tbl = document.createElement("table");
+            const tblBody = document.createElement("tbody");
+
+            // creating all cells
+
+            // console.log(report[0]["questions"])
+
+            let rows = report[0]["questions"].length;
+
+            for (let i = 0; i < rows; i++) {
+
+                const row = document.createElement("tr");
+                // console.log(report[0]["questions"][i])
+                for (let j = 0; j < 7; j++) {
+
+                    if(j==0)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["question"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                    }
+
+                    else if(j==1)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["type"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
+                    else if(j==2)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["optionA"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
+                    else if(j==3)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["optionB"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
+                    else if(j==4)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["optionC"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
+                    else if(j==5)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["optionD"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
+                    else if(j==6)
+                    {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(report[0]["questions"][i]["answer"]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+
+                    }
+
                 }
-            }).then(response => response.json())
-                .then((data) => {
-                    // console.log(data);
-                    data = JSON.stringify(data);
-                    console.log(data);
-                    localStorage['not_check'] = data;
-                    window.location = "remaining.html?guidelineId="+guidelineId;
-                    // document.getElementById("finalresult").value = data;
-                });
+
+                tblBody.appendChild(row);
+            }
+            tbl.appendChild(tblBody);
+            document.body.appendChild(tbl);
+            tbl.style.padding = "50px 600px 50px 600px";
+            tbl.style.background = "white"
+            tbl.setAttribute("border", "3");
+
         }
 
 
